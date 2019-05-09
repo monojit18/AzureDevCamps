@@ -1,0 +1,38 @@
+apiVersion: 2018-10-01
+location: eastus
+name: DockerContainerGroup
+properties:
+  containers:
+  - name: docker-workshop
+    properties:
+      image: workshopregistry.azurecr.io/dockerworkshop:v3.0.9
+      resources:
+        requests:
+          cpu: 0.25
+          memoryInGb: 0.5
+      ports:
+      - port: 7005      
+  - name: another-docker-workshop
+    properties:
+      image: workshopregistry.azurecr.io/anotherdockerworkshop:v3.0.6
+      resources:
+        requests:
+          cpu: 0.25
+          memoryInGb: 0.5
+      ports:
+      - port: 7007
+  imageRegistryCredentials:
+  - server: workshopregistry.azurecr.io
+    username: workshopregistry
+    password: 3f0pv9ymAE9xeD6IpHnOZ85mo6Wys2=K
+  osType: Linux
+  ipAddress:
+    type: Public
+    dnsnamelabel: dockergroup-dev
+    ports:
+    - protocol: tcp
+      port: '7005'
+    - protocol: tcp
+      port: '7007'
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
